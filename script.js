@@ -93,14 +93,6 @@ window.addEventListener('scroll', () => {
 const serviceCards = document.querySelectorAll('.service-card');
 
 serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-15px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-    });
-    
     // Add click functionality to navigate to specific sections
     card.addEventListener('click', () => {
         const service = card.getAttribute('data-service');
@@ -109,68 +101,9 @@ serviceCards.forEach(card => {
     });
 });
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+// Removed animation observer code
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
-const animateElements = document.querySelectorAll('.service-card, .vertical-section, .cta-section');
-animateElements.forEach(el => {
-    observer.observe(el);
-});
-
-// Counter animation for hero stats
-const animateCounters = () => {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.textContent.replace(/\D/g, ''));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            
-            if (counter.textContent.includes('+')) {
-                counter.textContent = Math.floor(current) + '+';
-            } else if (counter.textContent.includes('/')) {
-                counter.textContent = Math.floor(current) + '/7';
-            } else {
-                counter.textContent = Math.floor(current);
-            }
-        }, 16);
-    });
-};
-
-// Trigger counter animation when hero stats come into view
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateCounters();
-            statsObserver.unobserve(entry.target);
-        }
-    });
-});
-
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    statsObserver.observe(heroStats);
-}
+// Removed counter animation code
 
 // Form handling
 const contactForm = document.getElementById('contactForm');
@@ -263,16 +196,7 @@ const removeNotification = (notification) => {
     }, 300);
 };
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.hero');
-    const speed = 0.5;
-    
-    if (parallax) {
-        parallax.style.transform = `translateY(${scrolled * speed}px)`;
-    }
-});
+// Removed parallax effect
 
 // Lazy loading for images
 const lazyImages = document.querySelectorAll('img[data-src]');
@@ -292,55 +216,10 @@ lazyImages.forEach(img => {
     imageObserver.observe(img);
 });
 
-// Add loading animation
-const addLoadingAnimation = () => {
+// Add notification styles
+const addNotificationStyles = () => {
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .animate-in {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .animate-left {
-            animation: slideInLeft 0.8s ease-out forwards;
-        }
-        
-        .animate-right {
-            animation: slideInRight 0.8s ease-out forwards;
-        }
-        
         .notification-content {
             display: flex;
             align-items: center;
@@ -366,8 +245,8 @@ const addLoadingAnimation = () => {
     document.head.appendChild(style);
 };
 
-// Initialize animations
-addLoadingAnimation();
+// Initialize notification styles
+addNotificationStyles();
 
 // Page visibility API to pause/resume slider
 document.addEventListener('visibilitychange', () => {
@@ -441,16 +320,6 @@ window.addEventListener('scroll', debouncedScroll, { passive: true });
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Add initial animations
-    setTimeout(() => {
-        const heroTitle = document.querySelector('.hero-title');
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        const heroButtons = document.querySelector('.hero-buttons');
-        
-        if (heroTitle) heroTitle.classList.add('animate-left');
-        if (heroSubtitle) heroSubtitle.classList.add('animate-left');
-        if (heroButtons) heroButtons.classList.add('animate-left');
-    }, 500);
+    // Page is ready
+    console.log('Hustlers99 website loaded successfully! 🚀');
 });
-
-console.log('Hustlers99 website loaded successfully! 🚀');
